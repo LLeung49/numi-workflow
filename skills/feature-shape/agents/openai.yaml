@@ -1,7 +1,7 @@
 interface:
   display_name: "功能定义"
-  short_description: "把需求整理成可验收的功能规格"
-  default_prompt: "使用 $feature-shape 基于项目基线和必要的已验证现状事实，把当前需求整理成带测试边界和验收标准的功能规格，并停在 Gate B 功能规格评审。"
+  short_description: "把需求、调研和未决事项收敛成可决策功能规格"
+  default_prompt: "使用 $feature-shape 基于项目基线和必要证据定义功能；对未决事项明确类型、解决责任、证据、是否阻塞和 Agent 推荐，只把真正需要人工选择的事项带到 Gate B。"
 
 policy:
   allow_implicit_invocation: false
