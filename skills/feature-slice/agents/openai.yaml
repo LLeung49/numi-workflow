@@ -1,0 +1,7 @@
+interface:
+  display_name: "任务拆解"
+  short_description: "拆成可独立开发的端到端任务"
+  default_prompt: "使用 $feature-slice 把已确认且可拆解的功能规格拆成端到端开发任务，加入任务护栏、任务上下文和新会话接手检查，并停在 Gate C 任务拆解评审。"
+
+policy:
+  allow_implicit_invocation: false
