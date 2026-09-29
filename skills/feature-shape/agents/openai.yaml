@@ -1,7 +1,7 @@
 interface:
   display_name: "功能定义"
-  short_description: "把需求、调研和未决事项收敛成可决策功能规格"
-  default_prompt: "使用 $feature-shape 基于项目基线和必要证据定义功能；对未决事项明确类型、解决责任、证据、是否阻塞和 Agent 推荐，只把真正需要人工选择的事项带到 Gate B。"
+  short_description: "拆分未决问题、归责并收敛 Gate B blocker"
+  default_prompt: "使用 $feature-shape 基于项目基线和必要证据定义功能；拆分性质或阻塞条件不同的未决问题，区分当前 blocker 与条件性 blocker，客观事实由 Agent 核实，人工决策先给项目依据下的推荐，并在每次新证据或决定后重新计算当前真正 blocker。"
 
 policy:
   allow_implicit_invocation: false
