@@ -28,11 +28,21 @@ v0.6.2 是 `$feature-shape` 执行策略增强，不新增 Skill 或 Gate。
 
 如果一个 `D/A/R` 决策会决定某些 route 是否进入首版，先关闭主路径事实，对候选分支只补足形成可靠推荐所需的低成本证据。用户选定后，再激活对应条件性 blocker。
 
-## 5. 新建未决事项 ID 与状态分离
+## 5. 人工决定提交前检查“决策就绪”
+
+识别出 `D/A/R` 后，不要立即停下来问用户。先检查是否还有一个低成本、直接影响候选可行性 / 推荐 / 风险判断、且 Agent 仍能自主核实的事实。
+
+- 有：先回事实闭环；
+- 无：可以提交 Gate B；
+- 有，但经过有界合理尝试仍受权限、网络、数据、环境或范围限制：记录 Agent 闭环受限，此时用户决定是否接受边界 / 风险或授权扩大研究。
+
+用户决定若激活新的条件性事实，再回事实闭环，不能直接进入 `$feature-slice`。
+
+## 6. 新建未决事项 ID 与状态分离
 
 新建 ID 使用 `F/D/A/R/I`。`a/b/c` 只表示同一问题家族的子项。不要新建 `N-*` 来表示非 blocker；状态变化只改状态列。旧历史 ID 不要求机械重写。
 
-## 6. 已有 Feature 如何继续
+## 7. 已有 Feature 如何继续
 
 不需要重跑 `$project-discovery` 或已有 Research。对仍打开的 Feature 直接调用最新 `$feature-shape`：
 
@@ -42,13 +52,14 @@ v0.6.2 是 `$feature-shape` 执行策略增强，不新增 Skill 或 Gate。
 - 最后把真正需要人的决定带到 Gate B；
 - 用户决定若激活新的条件性事实，再回到事实闭环循环，关闭后才判断是否可进入 `$feature-slice`。
 
-## 7. 同步 Codex 实际 Skill 并自检
+## 8. 同步 Codex 实际 Skill 并自检
 
 把本仓库 `skills/` 同步到 Codex 实际加载目录后，检查：
 
 ```text
 feature-shape/SKILL.md:
 - 事实闭环循环
+- 决策就绪检查
 - 诊断复审模式
 - Agent 闭环受限事项
 - 不要用 `N-*`
@@ -59,6 +70,7 @@ feature-slice/SKILL.md:
 
 feature-shape/agents/openai.yaml:
 - 默认执行事实闭环循环
+- 决策就绪检查
 
 feature-slice/agents/openai.yaml:
 - 诊断复审模式
