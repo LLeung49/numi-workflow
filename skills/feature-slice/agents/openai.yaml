@@ -1,7 +1,7 @@
 interface:
   display_name: "任务拆解"
-  short_description: "只把无当前 blocker 的功能拆成可独立开发任务"
-  default_prompt: "使用 $feature-slice 把已确认且当前真正 blocker 已清空的功能规格拆成端到端开发任务；不得把未解决事实或决策留给开发 Agent，也不得通过任务范围隐式激活功能规格中尚未关闭的条件性 blocker。"
+  short_description: "只把事实闭环且无当前 blocker 的功能拆成开发任务"
+  default_prompt: "使用 $feature-slice 把已确认、已完成 $feature-shape 事实闭环且当前真正 blocker 已清空的功能规格拆成端到端开发任务；诊断复审模式或仍有未关闭的 Agent 事实项不得进入拆解。不得把未解决事实或决策留给开发 Agent，也不得通过任务范围隐式激活功能规格中尚未关闭的条件性 blocker。"
 
 policy:
   allow_implicit_invocation: false

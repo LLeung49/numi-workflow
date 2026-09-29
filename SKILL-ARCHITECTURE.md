@@ -1,4 +1,4 @@
-# Skill 架构 v0.6.1
+# Skill 架构 v0.6.2
 
 ## 分层
 
@@ -27,9 +27,9 @@ Spec-Kit / Superpowers
 | `architecture-health` | 架构健康检查 | 后续实现 |
 | `handoff` | 开发续接 | 已有独立 quota/handoff 机制可与未来版本组合 |
 
-v0.6.1 仍只实现前三个 Skill。
+v0.6.2 仍只实现前三个 Skill。
 
-## v0.6.1 能力：未决事项、条件性 blocker 与决策归纳
+## v0.6.2 能力：未决事项、条件性 blocker、事实闭环与决策归纳
 
 `feature-shape` 不再只把问题分成“待确认 / 待调研 / 实现细节”，而是进一步明确：
 
@@ -47,7 +47,7 @@ v0.6.1 仍只实现前三个 Skill。
 Gate B 可进入任务拆解
 ```
 
-Research、责任归类和决策归纳都属于 `feature-shape` 内部能力，不新增新 Skill 或新 Gate。v0.6.1 进一步要求：混合未决项拆分、条件性 blocker 写明激活条件、每次证据/决定后重新计算当前 blocker。
+Research、责任归类、事实闭环循环和决策归纳都属于 `feature-shape` 内部能力，不新增新 Skill 或新 Gate。v0.6.2 在 v0.6.1 基础上进一步要求：Agent 能自行核实的当前事实 blocker 默认持续闭环，只有用户决定、客观访问限制、范围/成本越界或显式诊断复审才允许暂停。
 
 
 ## 源码 Skill 与 Codex 已加载 Skill 不是同一状态
@@ -56,9 +56,10 @@ Research、责任归类和决策归纳都属于 `feature-shape` 内部能力，�
 
 因此升级验收必须同时检查：
 
-1. 工作流源码仓库已经是 v0.6.1；
-2. Codex 实际加载的 `feature-shape/SKILL.md` 能找到“条件性 blocker”“重新计算 blocker”等 v0.6.1 规则；
-3. `feature-slice` 能找到“不得隐式激活条件性 blocker”的规则。
+1. 工作流源码仓库已经是 v0.6.2；
+2. Codex 实际加载的 `feature-shape/SKILL.md` 能找到“事实闭环循环”“诊断复审模式”“重新计算 blocker”等 v0.6.2 规则；
+3. `feature-shape/agents/openai.yaml` 的默认入口也明确要求“默认执行事实闭环循环”；
+4. `feature-slice` 能找到“不得隐式激活条件性 blocker”的规则，并拒绝诊断复审状态进入任务拆解。
 
 如果 Codex 报告自己仍在使用旧三分类模板，说明源码升级完成但 Skill 安装没有同步。
 
@@ -77,6 +78,7 @@ $feature-shape
   → 功能规格 + 功能依据清单
   →（按需）调研记录 / 固定测试样本
   → 未决事项表
+  → 事实闭环循环（Agent-owned 当前事实）
   → Gate B 待确认决策（含 Agent 推荐）
 
 $feature-slice
