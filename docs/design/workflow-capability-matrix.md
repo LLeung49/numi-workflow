@@ -1,102 +1,60 @@
-# Workflow Capability Matrix v0.7 修订建议
+# Workflow Capability Matrix v0.7 Final
 
-## 修订目标
+## Capability Ownership Model
 
-基于 Numi Workflow v0.7 Architecture Reset，重新收敛能力边界，避免 numi
-演化为 Agent Runtime。
+所有能力统一分为三类：
 
-核心原则：
-
-> numi 负责 Human-Agent Collaboration，不负责替代成熟 Agent Harness。
-
-------------------------------------------------------------------------
-
-# 1. Capability Registry 调整
-
-## 原定位
-
-Workflow Capability → Provider → Execution Backend
-
-## 问题
-
-容易演化为：
-
--   Agent Marketplace
--   Provider Router
--   自动调度系统
-
-这些不是 numi 当前目标。
-
-## 修订
-
-Capability Registry 降级为：
-
-# Capability Catalog
-
-职责：
-
--   描述能力边界；
--   记录已有能力来源；
--   指导复用策略。
-
-不负责：
-
--   自动注册；
--   自动发现；
--   动态调度。
+  类型        定义
+  ----------- ------------------
+  Own         numi 核心能力
+  Reuse       复用成熟外部能力
+  Reference   仅描述，不实现
 
 ------------------------------------------------------------------------
 
-# 2. Execution Backend 调整
+# Numi Own
 
-## 原定位
+## Project Authority
 
-numi 负责执行后端选择。
-
-## 修订
-
-改为：
-
-# Execution Compatibility Declaration
-
-numi 描述：
-
--   需要什么执行能力；
--   当前环境有哪些可用能力；
--   验证交付需要什么条件。
-
-执行主体选择由：
-
--   用户；
--   Coding Agent；
--   Harness。
-
-负责。
-
-------------------------------------------------------------------------
-
-# 3. 核心 Own 能力
-
-numi Own：
+包括：
 
 -   项目基线；
 -   长期项目依据；
--   决策边界；
--   Feature 定义；
--   工作单元设计；
--   交付状态；
--   证据可信度。
+-   架构约束；
+-   领域上下文。
 
 ------------------------------------------------------------------------
 
-# 4. 明确 Reuse
+## Feature Definition
+
+包括：
+
+-   目标；
+-   范围；
+-   决策边界；
+-   验收标准。
+
+------------------------------------------------------------------------
+
+## Feature Delivery State
+
+包括：
+
+-   当前状态；
+-   完成证据；
+-   验收情况；
+-   升级条件。
+
+------------------------------------------------------------------------
+
+# Reuse
 
 复用：
 
 -   TDD；
 -   Code Review；
--   Debug；
 -   Worktree；
+-   Debugging；
 -   Implementation Workflow。
 
 来源：
@@ -107,8 +65,16 @@ numi Own：
 
 ------------------------------------------------------------------------
 
-# 5. v0.7 原则
+# Reference
 
-保持简单：
+仅描述：
 
-> 描述协作能力，而不是控制执行能力。
+-   Model Provider；
+-   Agent Harness；
+-   Execution Backend。
+
+numi 不负责：
+
+-   选择模型；
+-   调度 Agent；
+-   管理执行环境。
