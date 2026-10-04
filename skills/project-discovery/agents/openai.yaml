@@ -1,5 +1,5 @@
 interface:
-  display_name: "项目基线梳理"
+  display_name: "project-discovery"
   short_description: "梳理项目基线与按需现状事实"
   default_prompt: "使用 $project-discovery 梳理项目长期目标、需求、架构和工程规范；复杂已有项目按需建立或勘误现状事实记录，并停在 Gate A 项目基线评审。"
 

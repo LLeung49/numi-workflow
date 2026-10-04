@@ -1,5 +1,5 @@
 interface:
-  display_name: "功能交付"
+  display_name: "feature-deliver"
   short_description: "维护 Feature 交付状态、证据与协作边界"
   default_prompt: "使用 $feature-deliver 对齐已批准 Feature 的当前交付状态：读取功能规格、开发任务和实际执行证据，更新 delivery.md，识别阻塞、需要人工判断或应返回 $feature-shape / $feature-slice 的变化。不要实现代码、调度 Agent、选择模型或重复实现 handoff；执行方式交给当前 Coding Agent / Harness 和成熟外部 Workflow。"
 
