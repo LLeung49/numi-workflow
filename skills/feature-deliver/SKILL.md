@@ -60,7 +60,9 @@ delivery.md
 
 如果项目已有明确的等价交付状态文件，复用现有位置，不重复创建。
 
-`delivery.md` 是**动态执行事实记录**；已批准的 `spec.md` / `tasks.md` 仍然分别代表功能规格和任务拆解，不因为执行状态变化而被改写成运行日志。
+`delivery.md` 是**功能级动态执行事实记录**。
+
+已批准的功能规格，以及任务依赖图 / 开发任务，仍然分别代表功能定义和任务拆解；不要把它们改写成运行日志，也不要假设所有项目都必须使用某个固定的任务文件名。
 
 推荐最小结构：
 
@@ -113,21 +115,22 @@ v0.7 的首选是一个人和 Agent 都容易阅读、容易通过 Git 审查的
 - 阻塞；
 - 需上游复审。
 
-Feature 层可以使用：
+Feature 层使用：
 
 - 可开始；
 - 交付中；
 - 验证中；
 - 阻塞；
-- 待验收；
-- 已完成。
+- 待验收。
+
+`feature-deliver` 不拥有 Feature 的最终“已验收 / 验收失败”状态。
 
 状态变化必须有事实依据。
 
 例如：
 
 ```text
-进行中 → 已完成
+开发任务：进行中 → 已完成
 ```
 
 不能只因为 Agent 说“完成了”。
@@ -173,10 +176,10 @@ Feature 层可以使用：
 
 ```markdown
 - TICKET-03
-  - 主张: ETF fallback 已完成
+  - 主张: fallback 行为已完成
   - 证据:
     - `python -m pytest tests/...` → 8 passed
-    - `src/.../adapter.py` / `SinaAdapter`
+    - `src/.../adapter.py` / `FallbackAdapter`
   - 尚未证明:
     - 真实外网持续可用性
 ```
@@ -328,13 +331,13 @@ SESSION CONTINUITY
 
 如果当前 Agent Harness 已提供 Superpowers、Matt Pocock Skills 或其它成熟执行能力：
 
-> 复用它们完成“怎么实现”，本 Skill只维护“为什么做、当前到哪里、证据是什么、何时需要升级”。
+> 复用它们完成“怎么实现”，本 Skill 只维护“为什么做、当前到哪里、证据是什么、何时需要升级”。
 
 如果当前环境无法直接调用某个外部 Skill，不因此复制其完整实现；使用当前 Coding Agent 的原生执行能力，并保持本 Skill 的协作边界。
 
 ## 8. 交付收敛检查
 
-当所有当前范围开发任务都被声明完成时，不要直接把 Feature 标成“已完成”。
+当所有当前范围开发任务都被声明完成时，不要直接把 Feature 标成最终完成。
 
 先检查：
 
@@ -350,8 +353,6 @@ SESSION CONTINUITY
 ```text
 Feature 状态 = 待验收
 ```
-
-而不是直接宣告最终验收通过。
 
 最终 Feature 是否被接受，由 `$feature-accept` 负责。
 
@@ -409,6 +410,7 @@ Feature 状态 = 待验收
 - 实现新的 handoff 工具；
 - 替代 Coding Agent；
 - 创建新的 Workflow Runtime；
+- 宣告 Feature 已完成最终验收；
 - 自动 commit / push。
 
 本 Skill 的目标不是控制 Agent 怎么工作，而是让人和 Agent 在整个 Feature 交付过程中始终共享同一个目标、状态、证据和边界。
